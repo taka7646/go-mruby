@@ -1,6 +1,6 @@
 MRUBY_COMMIT ?= 1.2.0
 
-all: libmruby.a test
+all: libmruby.a libmruby.a.darwin libmruby.a.linux libmruby.a.win64 test
 
 clean:
 	rm -rf vendor
@@ -16,6 +16,18 @@ lint:
 libmruby.a: vendor/mruby
 	cd vendor/mruby && ${MAKE}
 	cp vendor/mruby/build/host/lib/libmruby.a .
+
+libmruby.a.darwin: vendor/mruby
+	cd vendor/mruby && rake MRUBY_CROSS_OS=darwin MRUBY_CONFIG=../../mruby_build_config.rb
+	cp vendor/mruby/build/darwin/lib/libmruby.a ./libmruby.a.darwin
+
+libmruby.a.linux: vendor/mruby
+	cd vendor/mruby && rake MRUBY_CROSS_OS=linux MRUBY_CONFIG=../../mruby_build_config.rb
+	cp vendor/mruby/build/linux/lib/libmruby.a ./libmruby.a.linux
+
+libmruby.a.win64: vendor/mruby
+	cd vendor/mruby && rake MRUBY_CROSS_OS=win64 MRUBY_CONFIG=../../mruby_build_config.rb
+	cp vendor/mruby/build/win64/lib/libmruby.a ./libmruby.a.win64
 
 vendor/mruby:
 	mkdir -p vendor

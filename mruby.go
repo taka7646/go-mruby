@@ -4,6 +4,9 @@ import "unsafe"
 
 // #cgo CFLAGS: -Ivendor/mruby/include
 // #cgo LDFLAGS: ${SRCDIR}/libmruby.a -lm
+// #cgo darwin,amd64 LDFLAGS: ${SRCDIR}/libmruby.a.darwin -lm
+// #cgo linux,amd64 LDFLAGS: ${SRCDIR}/libmruby.a.linux -lm
+// #cgo windows,amd64 LDFLAGS: ${SRCDIR}/libmruby.a.win64 -lm
 // #include <stdlib.h>
 // #include "gomruby.h"
 import "C"
