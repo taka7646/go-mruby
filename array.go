@@ -15,6 +15,12 @@ func (v *Array) Len() int {
 	return int(C.mrb_ary_len(v.state, v.value))
 }
 
+// Push value to array
+func (v *Array) Push(val Value) {
+	valVal := val.MrbValue(&Mrb{v.state}).value
+	C.mrb_ary_push(v.state, v.value, valVal)
+}
+
 // Get gets an element form the Array by index.
 //
 // This does not copy the element. This is a pointer/reference directly
